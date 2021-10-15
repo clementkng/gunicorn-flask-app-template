@@ -14,7 +14,5 @@ RUN pip3 install flask
 
 COPY ./app/* /app/
 
-EXPOSE 80/tcp
-
 WORKDIR /app
 CMD ["./gunicorn.sh"]
