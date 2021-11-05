@@ -3,6 +3,8 @@ DOCKERHUB_ID:=ibmosquito
 NAME:="gunicorn-flask-app-template"
 VERSION:="1.0.0"
 PORT:=80
+WORKERS:=2
+THREADS:=2
 
 default: build run
 
@@ -13,6 +15,8 @@ dev: stop build
 	docker run -it -v `pwd`:/outside \
 	  --name ${NAME} \
 	  -p 0.0.0.0:$(PORT):80 \
+	  -e WORKERS=${WORKERS} \
+	  -e THREADS=${THREADS} \
 	  $(DOCKERHUB_ID)/$(NAME):$(VERSION) /bin/bash
 
 run: stop
@@ -20,6 +24,8 @@ run: stop
 	  --name ${NAME} \
 	  --restart unless-stopped \
 	  -p 0.0.0.0:$(PORT):80 \
+	  -e WORKERS=${WORKERS} \
+	  -e THREADS=${THREADS} \
 	  $(DOCKERHUB_ID)/$(NAME):$(VERSION)
 
 test:
