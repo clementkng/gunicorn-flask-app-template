@@ -8,11 +8,10 @@ RUN apt-get update && apt-get install -y \
   curl jq vim \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Flask
-RUN pip3 install --upgrade pip
-RUN pip3 install flask
-
 COPY ./app/* /app/
+
+# Install Flask
+RUN pip3 install --no-cache-dir -r app/requirements.txt
 
 WORKDIR /app
 CMD ["./gunicorn.sh"]
