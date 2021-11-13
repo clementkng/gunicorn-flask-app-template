@@ -14,7 +14,7 @@ build:
 dev: stop build
 	docker run -it -v `pwd`:/outside \
 	  --name ${NAME} \
-	  -p 0.0.0.0:$(PORT):80 \
+	  -p 0.0.0.0:${PORT}:80 \
 	  -e WORKERS=${WORKERS} \
 	  -e THREADS=${THREADS} \
 	  $(DOCKERHUB_ID)/$(NAME):$(VERSION) /bin/bash
@@ -23,7 +23,7 @@ run: stop
 	docker run -d \
 	  --name ${NAME} \
 	  --restart unless-stopped \
-	  -p 0.0.0.0:$(PORT):80 \
+	  -p 0.0.0.0:${PORT}:80 \
 	  -e WORKERS=${WORKERS} \
 	  -e THREADS=${THREADS} \
 	  $(DOCKERHUB_ID)/$(NAME):$(VERSION)
